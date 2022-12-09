@@ -1,12 +1,12 @@
 #include <stdio.h>
 /**
- * main- prints a given phrase
+ * main - prints a given phrase
  *
- * return: O if exited properly
+ * Return: O if exited properly
  */
 
 int main(void)
 {
 	puts("\"Programming is like building a multilingual puzzle");
-	return (0);
+		return (0);
 }
