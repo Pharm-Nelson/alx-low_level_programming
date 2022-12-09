@@ -1,8 +1,8 @@
 #include <stdio.h>
 /**
- * main given phrase
+ * main- prints a given phrase
  *
- * return: O success
+ * return: O if exited properly
  */
 
 int main(void)
