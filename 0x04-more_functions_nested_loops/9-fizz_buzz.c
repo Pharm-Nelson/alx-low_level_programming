@@ -19,13 +19,13 @@ for (i = 1; i <= 100; i++)
 if (i == 100)
 printsf("%s", b);
 else if ((i % 3 == 0) && (i % 5 == 0))
-printf("%s", fb);
+printf("%s ", fb);
 else if (i % 3 == 0)
-printf("%s", f);
+printf("%s ", f);
 else if (i % 5 == 0)
-printf("%s", b);
+printf("%s ", b);
 else
-printf("%d", i);
+printf("%d ", i);
 }
 printf("\n");
 return (0);
