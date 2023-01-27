@@ -1,52 +1,112 @@
 #include "lists.h"
-
-int _strlen_recursion(char *s);
+#include <stdlib.h>
 
 /**
- * add_node_end - adds a new node at the end of a list_t list.
- * @head: pointer to the first element of the list.
- * @str: string to set in the new node.
- * Return: address of the new element, or NULL if it failed
- **/
-list_t *add_node_end(list_t **head, const char *str)
+ * _strlen - returns the length of a string
+ *
+ * @s: string to be measured
+ *
+ * Return: amount of chars in string
+ */
+
+/* temporarily changed to const char * */
+
+int _strlen(const char *s)
 {
-	list_t *new, *aux = *head;
+	int length = 0;
 
-	new = malloc(sizeof(list_t));
-	if (new == NULL)
+	for (; *s; s++)
 	{
-		return (NULL);
+		length++;
 	}
-	new->str = strdup(str);
-	if (!new->str)
-	{
-		free(new);
-		return (NULL);
-	}
-	new->len = _strlen_recursion(new->str);
-	new->next = NULL;
 
-	if (aux)
-	{
-		while (aux->next)
-			aux = aux->next;
-		aux->next = new;
-	}
-	else
-		*head = new;
-
-	return (new);
+	return (length);
 }
 
 /**
- * _strlen_recursion - returns the length of a string.
- * @s: string.
- * Return: length of @s.
+ * _strdup - returns a pointer to a newly allocated
+ * space in memory, which contains a copy of the string
+ * given as a parameter.
+ *
+ * @str: string to be copied and used to determine size of
+ * memory allocation
+ *
+ * Return: pointer to first address in the space created
+ * in memory
  */
-int _strlen_recursion(char *s)
+
+/* temporarily changed to const char * */
+
+char *_strdup(const char *str)
 {
-	if (*s == 0)
-		return (0);
-	else
-		return (1 + _strlen_recursion(s + 1));
+	int size;
+	int i;
+	char *p;
+
+	if (!str)
+		return (NULL);
+
+	size = (_strlen(str) + 1);
+
+	p = malloc(sizeof(char) * size);
+	if (p == NULL)
+	{
+		return (NULL);
+	}
+
+	for (i = 0; i < size; i++)
+		p[i] = str[i];
+
+	return (p);
+}
+
+/**
+ * add_node_end - adds a new node at the end of a struct type
+ * list_t linked list
+ *
+ * @head: pointer to pointer to first member of list
+ *
+ * @str: string to be inlcuded as member str of new list_t struct node
+ *
+ * Return: address of new member, or NULL if failed
+ */
+
+list_t *add_node_end(list_t **head, const char *str)
+{
+	list_t *new_node;
+	list_t *temp;
+
+	if (!head && !str)
+		return (NULL);
+
+	new_node = malloc(sizeof(list_t));
+	if (!new_node)
+	{
+		free(new_node);
+		return (NULL);
+	}
+	new_node->str = _strdup(str);
+	if (!(new_node->str))
+	{
+		free(new_node);
+		return (NULL);
+	}
+
+	new_node->len = _strlen(new_node->str);
+	new_node->next = NULL;
+
+	if (*head == NULL)
+	{
+		*head = new_node;
+		return (new_node);
+	}
+
+	temp = *head;
+	while (temp->next != NULL)
+	{
+		temp = temp->next;
+	}
+	temp->next = new_node;
+
+	return (new_node);
 }
